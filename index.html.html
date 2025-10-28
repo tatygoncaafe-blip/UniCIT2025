@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Diagnóstico de Treinamento — Unicit 2025</title>
+  <style>
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#05050a 0%,#121025 100%);color:#e6eef8;margin:0;padding:28px;}
+    .container{max-width:980px;margin:0 auto;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));border-radius:14px;padding:22px;box-shadow:0 10px 40px rgba(2,6,23,0.7)}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+    header img{height:56px}
+    h1{font-size:22px;margin:0;color:#6C2BD9}
+    p.lead{color:#9aa6bf;margin:6px 0 18px}
+    form{display:grid;gap:16px}
+    .q{background:rgba(255,255,255,0.03);padding:14px;border-radius:10px}
+    label{display:block;font-weight:700;margin-bottom:8px}
+    input[type=text],input[type=email],select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:#e6eef8}
+    .options{display:flex;flex-direction:column;gap:8px}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    button{background:linear-gradient(90deg,#6C2BD9,#FF7A00);border:none;padding:10px 16px;border-radius:10px;color:white;font-weight:700;cursor:pointer}
+    .report{background:#0b1220;padding:16px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);margin-top:12px}
+    .course{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;margin-top:6px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="Ativo 1logo.png" alt="Logotipo Unicit">
+      <div>
+        <h1>Diagnóstico de Treinamento — Unicit 2025</h1>
+        <p class="lead">Responda às perguntas abaixo e receba recomendações de cursos personalizados do Catálogo 2025.</p>
+      </div>
+    </header>
+
+    <form id="diagnostico">
+      <div class="q">
+        <label>Nome completo</label>
+        <input type="text" id="nome" placeholder="Digite seu nome" required>
+      </div>
+      <div class="q">
+        <label>E-mail corporativo</label>
+        <input type="email" id="email" placeholder="seu.email@empresa.com" required>
+      </div>
+      <div class="q">
+        <label>1) Em qual área você mais atua no dia a dia?</label>
+        <select id="area">
+          <option>RH</option>
+          <option>Atendimento</option>
+          <option>Vendas</option>
+          <option>Marketing</option>
+          <option>Gestão</option>
+          <option>Tecnologia</option>
+          <option>Projetos</option>
+          <option>Design</option>
+          <option>Administrativo</option>
+          <option>Outro</option>
+        </select>
+      </div>
+      <div class="q">
+        <label>2) Quais desafios você mais enfrenta atualmente?</label>
+        <textarea id="desafios" rows="3" placeholder="Ex: comunicação com equipe, produtividade, uso de tecnologia..."></textarea>
+      </div>
+      <div class="q">
+        <label>3) O que você gostaria de aprimorar nos próximos 3 meses?</label>
+        <textarea id="aprimorar" rows="3" placeholder="Ex: liderança, ferramentas digitais, finanças pessoais, criatividade..."></textarea>
+      </div>
+      <div class="q">
+        <label>4) Como você prefere aprender?</label>
+        <div class="options">
+          <label><input type="radio" name="aprendizagem" value="videos" checked> Vídeos curtos</label>
+          <label><input type="radio" name="aprendizagem" value="pratico"> Conteúdo prático</label>
+          <label><input type="radio" name="aprendizagem" value="aovivo"> Aulas ao vivo</label>
+          <label><input type="radio" name="aprendizagem" value="leitura"> Leitura de artigos</label>
+          <label><input type="radio" name="aprendizagem" value="projetos"> Projetos práticos</label>
+        </div>
+      </div>
+      <div class="q">
+        <label>5) Você se considera uma pessoa mais...</label>
+        <div class="options row">
+          <label><input type="radio" name="perfil" value="analitica"> Analítica</label>
+          <label><input type="radio" name="perfil" value="criativa"> Criativa</label>
+          <label><input type="radio" name="perfil" value="comunicativa"> Comunicativa</label>
+          <label><input type="radio" name="perfil" value="pessoas"> Focada em pessoas</label>
+          <label><input type="radio" name="perfil" value="resultados"> Focada em resultados</label>
+        </div>
+      </div>
+      <div class="q">
+        <label>6) Quando pensa no futuro da sua carreira, você quer...</label>
+        <div class="options row">
+          <label><input type="radio" name="futuro" value="liderar"> Liderar equipes</label>
+          <label><input type="radio" name="futuro" value="especializar"> Se especializar</label>
+          <label><input type="radio" name="futuro" value="empreender"> Empreender</label>
+          <label><input type="radio" name="futuro" value="mudar"> Mudar de área</label>
+          <label><input type="radio" name="futuro" value="crescer"> Crescer na atual função</label>
+        </div>
+      </div>
+
+      <button type="button" id="gerar">Gerar diagnóstico</button>
+      <button type="button" id="email">Enviar por e-mail</button>
+    </form>
+
+    <div id="resultado" style="display:none" class="report">
+      <h2>Cursos recomendados</h2>
+      <div id="listaCursos"></div>
+    </div>
+  </div>
+
+<script>
+const cursos = [
+  'Comunicação e Inteligência Emocional', 'Liderança Positiva', 'Feedback para o Protagonismo', 'Gestão de Processos', 'Desmistificando OKR', 'Power BI na Prática', 'IA para o Crescimento Profissional', 'Design no Canva', 'Apresentações que Impactam', 'Produtividade e Gestão do Tempo', 'A Arte do Encantamento', 'Vendas e Negociação'];
+
+function gerarDiagnostico(){
+  const selecionados = [];
+  while(selecionados.length<6){
+    const item = cursos[Math.floor(Math.random()*cursos.length)];
+    if(!selecionados.includes(item)) selecionados.push(item);
+  }
+  const lista = document.getElementById('listaCursos');
+  lista.innerHTML = '';
+  selecionados.forEach(c => {
+    const div = document.createElement('div');
+    div.className = 'course';
+    div.textContent = c;
+    lista.appendChild(div);
+  });
+  document.getElementById('resultado').style.display = 'block';
+  window.__lastCursos = selecionados;
+}
+
+document.getElementById('gerar').addEventListener('click', gerarDiagnostico);
+
+document.getElementById('email').addEventListener('click', ()=>{
+  if(!window.__lastCursos){alert('Gere o diagnóstico primeiro.');return;}
+  const body = encodeURIComponent('Cursos recomendados:\n\n'+window.__lastCursos.join('\n'));
+  const subject = encodeURIComponent('Diagnóstico de Treinamento — Unicit 2025');
+  window.location.href = `mailto:?subject=${subject}&body=${body}`;
+});
+</script>
+</body>
+</html>
